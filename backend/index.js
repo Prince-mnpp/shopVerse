@@ -14,7 +14,14 @@ app.get("/", (req,res) => {
   res.send("hello there");
 })
 
+console.log(process.env.EMAIL_USER);
+console.log(process.env.EMAIL_PASS);
+
 app.use("/api/auth/",authRoutes);
+app.use("/api/products",productRoutes);
+// app.use("/api/orders", orderRoutes);
+// app.use("/api/payment", paymentRoutes);
+// app.use("/api/analytics", analyticsRoutes);
 
 const PORT = process.env.PORT || 5000;
 

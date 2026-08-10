@@ -20,5 +20,6 @@ export const sendEmail = async(to, subject, text) => {
   }
   catch(error){
     console.log("error in sending mail", error);
+    throw new Error(`error while sending mail, ${error}`);
   }
 }
