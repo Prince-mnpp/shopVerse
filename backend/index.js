@@ -3,6 +3,9 @@ import cors from "cors";
 import express from "express";
 import authRoutes from "./route/authRoutes.js";
 import { connectDB } from "./config/db.js";
+import productRoutes from "./route/productRoutes.js"
+import orderRoutes from "./route/orderRoutes.js"
+import paymentRoutes from "./route/paymentRoutes.js"
 
 dotenv.config();
 connectDB();
@@ -19,8 +22,9 @@ console.log(process.env.EMAIL_PASS);
 
 app.use("/api/auth/",authRoutes);
 app.use("/api/products",productRoutes);
-// app.use("/api/orders", orderRoutes);
-// app.use("/api/payment", paymentRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/payment", paymentRoutes
+);
 // app.use("/api/analytics", analyticsRoutes);
 
 const PORT = process.env.PORT || 5000;
