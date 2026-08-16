@@ -16,8 +16,9 @@ const Home = () => {
       } finally{
         setLoading(false);
       }
-    }
-  })
+    };
+    fetchProducts();
+  });
 
   return (
     <div>
@@ -30,9 +31,9 @@ const Home = () => {
         <div>Loading...</div>
       ): (
         <div>
-          {products.map((product) => {
+          {products.map((product) => (
             <ProductCard key={product._id} product={product}/>
-          })}
+          ))}
         </div>
       )}
     </div>
