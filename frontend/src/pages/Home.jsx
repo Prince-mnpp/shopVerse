@@ -21,8 +21,8 @@ const Home = () => {
   });
 
   return (
-    <div>
-      <div>
+    <div className="home-container">
+      <div className="hero-banner">
         <h1>Welcome to ShopVerse</h1>
         <p>Discover the best products at unbeatable prices.</p>
       </div>
@@ -30,7 +30,7 @@ const Home = () => {
       {loading? (
         <div>Loading...</div>
       ): (
-        <div>
+        <div className="product-grid">
           {products.map((product) => (
             <ProductCard key={product._id} product={product}/>
           ))}
