@@ -1,177 +1,120 @@
+import mongoose from 'mongoose';
 import dotenv from "dotenv";
-import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import Product from "./model/Product.js";
-import User from "./model/User.js";
-import Order from "./model/Order.js";
+import User from './model/User';
+import Product from './model/Product';
+import { connectDB } from './config/db';
 
-// Load MONGO_URI from backend/.env when this file is run directly.
 dotenv.config();
 
-const products = [
-  {
-    name: "Wireless Bluetooth Headphones",
-    description: "Over-ear headphones with 30-hour battery life and noise isolation.",
-    price: 2499,
-    category: "Electronics",
-    stock: 25,
-    imageUrl: "https://placehold.co/600x600?text=Headphones",
-    rating: 4.5,
-    numReviews: 18,
-  },
-  {
-    name: "Classic Cotton T-Shirt",
-    description: "Soft, regular-fit cotton t-shirt for everyday wear.",
-    price: 699,
-    category: "Fashion",
-    stock: 50,
-    imageUrl: "https://placehold.co/600x600?text=T-Shirt",
-    rating: 4.2,
-    numReviews: 12,
-  },
-  {
-    name: "Stainless Steel Water Bottle",
-    description: "Insulated 750 ml bottle that keeps drinks cold or hot for hours.",
-    price: 899,
-    category: "Home & Kitchen",
-    stock: 40,
-    imageUrl: "https://placehold.co/600x600?text=Water+Bottle",
-    rating: 4.7,
-    numReviews: 31,
-  },
-  {
-    name: "Mechanical Gaming Keyboard",
-    description: "Compact RGB mechanical keyboard with tactile switches.",
-    price: 3499,
-    category: "Electronics",
-    stock: 15,
-    imageUrl: "https://placehold.co/600x600?text=Keyboard",
-    rating: 4.6,
-    numReviews: 24,
-  },
-];
+connectDB();
 
-const users = [
-  { name: "Admin User", email: "admin@shopnest.test", role: "admin" },
-  { name: "Aarav Sharma", email: "aarav@shopnest.test", role: "user" },
-  { name: "Meera Patel", email: "meera@shopnest.test", role: "user" },
-];
+const importData = async () => {
+  try {
+    await User.deleteMany();
+    await Product.deleteMany();
 
-const address = {
-  fullName: "Aarav Sharma",
-  street: "42 Market Road",
-  city: "New Delhi",
-  postalCode: "110001",
-  country: "India",
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash('password123', salt);
+    
+    const adminUser = await User.create({
+      name: 'Admin User',
+      email: 'admin@shopnest.com',
+      password: hashedPassword,
+      role: 'admin'
+    });
+
+    const products = [
+      {
+        name: 'Ultra-Sharp Smart Watch Series 8',
+        description: 'Advanced fitness tracking, AMOLED display, heart rate sensor, and multi-day battery life.',
+        price: 199.99,
+        category: 'Electronics',
+        stock: 25,
+        imageUrl: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1080&q=80',
+        ratings: 4.7,
+        numReviews: 42
+      },
+      {
+        name: 'Ergonomic Mesh Office Chair',
+        description: 'Breathable lumbar support chair designed for all-day comfort with adjustable armrests.',
+        price: 249.50,
+        category: 'Furniture',
+        stock: 18,
+        imageUrl: 'https://images.unsplash.com/photo-1580481072645-022f9a6d1296?auto=format&fit=crop&w=1080&q=80',
+        ratings: 4.5,
+        numReviews: 31
+      },
+      {
+        name: 'Vintage Leather Travel Duffel Bag',
+        description: 'Handcrafted full-grain leather duffel bag perfect for weekend getaways and carry-on travel.',
+        price: 129.00,
+        category: 'Fashion',
+        stock: 12,
+        imageUrl: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1080&q=80',
+        ratings: 4.8,
+        numReviews: 67
+      },
+      {
+        name: 'Stainless Steel Pour-Over Coffee Maker',
+        description: 'Precision brewing glass carafe with permanent reusable stainless steel mesh filter.',
+        price: 39.99,
+        category: 'Home & Kitchen',
+        stock: 40,
+        imageUrl: 'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?auto=format&fit=crop&w=1080&q=80',
+        ratings: 4.6,
+        numReviews: 115
+      },
+      {
+        name: 'Pro Mechanical Gaming Keyboard',
+        description: 'Tactile RGB back-lit mechanical keys with anti-ghosting technology and durable aluminum frame.',
+        price: 119.95,
+        category: 'Electronics',
+        stock: 30,
+        imageUrl: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1080&q=80',
+        ratings: 4.9,
+        numReviews: 88
+      },
+      {
+        name: 'Polarized Wayfarer Sunglasses',
+        description: '100% UV400 protection lightweight frame with anti-glare polarized scratch-resistant lenses.',
+        price: 65.00,
+        category: 'Fashion',
+        stock: 45,
+        imageUrl: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=1080&q=80',
+        ratings: 4.3,
+        numReviews: 54
+      },
+      {
+        name: 'Aromatherapy Ceramic Essential Oil Diffuser',
+        description: 'Quiet ultrasonic cool mist humidifier with 7 color LED light modes and automatic shut-off.',
+        price: 29.99,
+        category: 'Home & Kitchen',
+        stock: 60,
+        imageUrl: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=1080&q=80',
+        ratings: 4.4,
+        numReviews: 92
+      },
+      {
+        name: 'Studio Monitor Over-Ear Headphones',
+        description: 'Professional high-fidelity audio headphones built for studio tracking, mixing, and critical listening.',
+        price: 179.00,
+        category: 'Electronics',
+        stock: 15,
+        imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1080&q=80',
+        ratings: 4.8,
+        numReviews: 140
+      }
+    ];
+
+    await Product.insertMany(products);
+    
+    console.log('✅ Data Imported Successfully!');
+    process.exit();
+  } catch (error) {
+    console.error(`❌ Error with data import: ${error.message}`);
+    process.exit(1);
+  }
 };
 
-async function seedDatabase() {
-  if (!process.env.MONGO_URI) {
-    throw new Error("MONGO_URI is missing. Add it to backend/.env before running the seed script.");
-  }
-
-  // If the URI has no database path, MongoDB otherwise uses a database named
-  // "test". DB_NAME lets you override this without putting a name in the URI.
-  const dbName = process.env.DB_NAME || "shopnest";
-  await mongoose.connect(process.env.MONGO_URI, {
-    dbName,
-    serverSelectionTimeoutMS: 10_000,
-  });
-  console.log(`Connected to MongoDB database: ${mongoose.connection.name}`);
-
-  // Upsert makes this safe to run more than once and creates the database on
-  // the first insert (MongoDB creates databases lazily).
-  const operations = products.map((product) => ({
-    updateOne: {
-      filter: { name: product.name },
-      update: { $setOnInsert: product },
-      upsert: true,
-    },
-  }));
-
-  const productResult = await Product.bulkWrite(operations);
-  console.log(
-    `Products: ${productResult.upsertedCount} added, ${productResult.matchedCount} already existed.`
-  );
-
-  // All seeded accounts use this password. It is hashed before insertion, just
-  // like registered accounts, and is not overwritten on later seed runs.
-  const password = await bcrypt.hash("Password@123", 10);
-  const userResult = await User.bulkWrite(
-    users.map((user) => ({
-      updateOne: {
-        filter: { email: user.email },
-        update: {
-          $setOnInsert: { ...user, password, verified: true },
-        },
-        upsert: true,
-      },
-    }))
-  );
-  console.log(`Users: ${userResult.upsertedCount} added, ${userResult.matchedCount} already existed.`);
-
-  const seededProducts = await Product.find({ name: { $in: products.map((product) => product.name) } });
-  const seededUsers = await User.find({ email: { $in: users.map((user) => user.email) } });
-  const productsByName = new Map(seededProducts.map((product) => [product.name, product]));
-  const usersByEmail = new Map(seededUsers.map((user) => [user.email, user]));
-
-  if (productsByName.size !== products.length || usersByEmail.size !== users.length) {
-    throw new Error("Could not load all seeded users and products to create orders.");
-  }
-
-  const orders = [
-    {
-      paymentId: "seed-payment-001",
-      userId: usersByEmail.get("aarav@shopnest.test")._id,
-      items: [
-        {
-          productId: productsByName.get("Wireless Bluetooth Headphones")._id,
-          qty: 1,
-          price: 2499,
-        },
-        {
-          productId: productsByName.get("Stainless Steel Water Bottle")._id,
-          qty: 2,
-          price: 899,
-        },
-      ],
-      totalAmount: 4297,
-      address,
-      status: "Shipped",
-    },
-    {
-      paymentId: "seed-payment-002",
-      userId: usersByEmail.get("meera@shopnest.test")._id,
-      items: [
-        {
-          productId: productsByName.get("Mechanical Gaming Keyboard")._id,
-          qty: 1,
-          price: 3499,
-        },
-      ],
-      totalAmount: 3499,
-      address: { ...address, fullName: "Meera Patel", city: "Mumbai", postalCode: "400001" },
-      status: "Pending",
-    },
-  ];
-
-  const orderResult = await Order.bulkWrite(
-    orders.map((order) => ({
-      updateOne: {
-        filter: { paymentId: order.paymentId },
-        update: { $setOnInsert: order },
-        upsert: true,
-      },
-    }))
-  );
-  console.log(`Orders: ${orderResult.upsertedCount} added, ${orderResult.matchedCount} already existed.`);
-}
-
-seedDatabase()
-  .catch((error) => {
-    console.error("Seeding failed:", error.message);
-    process.exitCode = 1;
-  })
-  .finally(async () => {
-    await mongoose.disconnect();
-  });
+importData();

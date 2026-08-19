@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import cors from "cors";
-import express from "express";
+import express, { application } from "express";
 import authRoutes from "./route/authRoutes.js";
 import { connectDB } from "./config/db.js";
 import productRoutes from "./route/productRoutes.js";
@@ -12,6 +12,11 @@ dotenv.config();
 connectDB();
 
 const app = express();
+
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://127.0.0.1:3000', process.env.FRONTEND_URL],
+  credentials: true
+}));
 app.use(express.json());
 
 app.get("/", (req,res) => {
@@ -26,6 +31,22 @@ app.use("/api/products",productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/analytics", analyticsRoutes);
+
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static(Path.join(__dirname, '../frontend/build')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../frontend/build/index.html'));
+  })
+} else {
+  app.get('/', (req, res) => {
+    res.send('ShopVerse API is running in Development mode...');
+  });
+}
+
+app.use('/api/*', (req, res) => {
+  res.status(404).json({message : "API route not found"});
+})
 
 const PORT = process.env.PORT || 5000;
 

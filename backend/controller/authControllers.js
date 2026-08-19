@@ -26,7 +26,11 @@ export const registerUser = async(req, res) => {
       const message = `Welcome to ShopVerse, ${name}!
       Your otp for registration is ${otp}`;
 
-      await sendEmail(email, `Welcome to shopVerse - your otp for registration`, message);
+      await sendEmail({
+        email,
+        subject: 'Welcome to shopVerse - your otp for registration',
+        message
+      });
       res.status(201).json({
         _id: user._id,
         name: user.name,
