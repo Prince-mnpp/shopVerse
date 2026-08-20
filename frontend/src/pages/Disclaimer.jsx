@@ -4,32 +4,40 @@ const textualStyle = {
   maxWidth: '900px',
   margin: '0 auto',
   padding: '40px',
-  background: '#18181b',
-  borderRadius: '16px',
-  border: '1px solid rgba(255, 255, 255, 0.05)',
-  boxShadow: '0 10px 40px rgba(0,0,0,0.5)',
+  background: '#ffffff',
+  borderRadius: '20px',
+  border: '1px solid #e2e8f0',
+  boxShadow: '0 10px 30px rgba(15, 23, 42, 0.05)',
   lineHeight: '1.8',
-  color: '#a1a1aa',
+  color: '#475569',
   fontFamily: 'sans-serif'
 };
 
 const sectionTitleStyle = {
-  color: '#f97316',
+  color: '#4f46e5',
   marginTop: '25px',
   marginBottom: '10px',
-  fontSize: '1.1rem',
-  fontWeight: '600'
+  fontSize: '1.15rem',
+  fontWeight: '700'
 };
 
 const Disclaimer = () => {
   return (
     <div style={textualStyle}>
-      <h2 style={{ color: '#fff', marginBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '15px' }}>
+      <h2 style={{ 
+        color: '#0f172a', 
+        marginBottom: '20px', 
+        borderBottom: '1px solid #e2e8f0', 
+        paddingBottom: '15px',
+        fontSize: '2rem',
+        fontWeight: '800',
+        letterSpacing: '-0.5px'
+      }}>
         ShopVerse — Terms & Legal Disclaimer
       </h2>
 
       <p style={{ marginBottom: '20px' }}>
-        Welcome to <strong>ShopVerse</strong>. By browsing, navigating, or interacting with this application, you acknowledge that you have read, understood, and agreed to the legal parameters and restrictions outlined below.
+        Welcome to <strong style={{ color: '#0f172a' }}>ShopVerse</strong>. By browsing, navigating, or interacting with this application, you acknowledge that you have read, understood, and agreed to the legal parameters and restrictions outlined below.
       </p>
 
       <h4 style={sectionTitleStyle}>1. Platform Purpose & Educational Scope</h4>
@@ -44,7 +52,7 @@ const Disclaimer = () => {
 
       <h4 style={sectionTitleStyle}>3. Payment Gateway & Financial Transactions</h4>
       <p style={{ marginBottom: '15px' }}>
-        ShopVerse does not process real financial transactions or store sensitive payment credentials. Any payment interface provided (e.g., Razorpay or Stripe) operates strictly in test/sandbox mode using dummy credit card details or test UPI IDs. Please <strong>do not enter real credit card numbers or sensitive banking details</strong> under any circumstances.
+        ShopVerse does not process real financial transactions or store sensitive payment credentials. Any payment interface provided (e.g., Razorpay or Stripe) operates strictly in test/sandbox mode using dummy credit card details or test UPI IDs. Please <strong style={{ color: '#0f172a' }}>do not enter real credit card numbers or sensitive banking details</strong> under any circumstances.
       </p>
 
       <h4 style={sectionTitleStyle}>4. User Accounts & Data Privacy</h4>
@@ -62,7 +70,14 @@ const Disclaimer = () => {
         This application may embed or route to external third-party tools, APIs, and CDN networks. ShopVerse retains no control over the content, uptime, or privacy practices of these external dependencies.
       </p>
 
-      <div style={{ marginTop: '35px', paddingTop: '20px', borderTop: '1px solid rgba(255,255,255,0.05)', fontSize: '0.85rem', fontStyle: 'italic', color: '#71717a' }}>
+      <div style={{ 
+        marginTop: '35px', 
+        paddingTop: '20px', 
+        borderTop: '1px solid #e2e8f0', 
+        fontSize: '0.85rem', 
+        fontStyle: 'italic', 
+        color: '#94a3b8' 
+      }}>
         Last updated: 2026. Continued access to the ShopVerse platform constitutes implicit agreement to these terms.
       </div>
     </div>

@@ -4,32 +4,40 @@ const textualStyle = {
   maxWidth: '900px',
   margin: '0 auto',
   padding: '40px',
-  background: '#18181b',
-  borderRadius: '16px',
-  border: '1px solid rgba(255, 255, 255, 0.05)',
-  boxShadow: '0 10px 40px rgba(0,0,0,0.5)',
+  background: '#ffffff',
+  borderRadius: '20px',
+  border: '1px solid #e2e8f0',
+  boxShadow: '0 10px 30px rgba(15, 23, 42, 0.05)',
   lineHeight: '1.8',
-  color: '#a1a1aa',
+  color: '#475569',
   fontFamily: 'sans-serif'
 };
 
 const sectionTitleStyle = {
-  color: '#f97316',
+  color: '#4f46e5',
   marginTop: '25px',
   marginBottom: '10px',
-  fontSize: '1.1rem',
-  fontWeight: '600'
+  fontSize: '1.15rem',
+  fontWeight: '700'
 };
 
 const ReturnPolicy = () => {
   return (
     <div style={textualStyle}>
-      <h2 style={{ color: '#fff', marginBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '15px' }}>
+      <h2 style={{ 
+        color: '#0f172a', 
+        marginBottom: '20px', 
+        borderBottom: '1px solid #e2e8f0', 
+        paddingBottom: '15px',
+        fontSize: '2rem',
+        fontWeight: '800',
+        letterSpacing: '-0.5px'
+      }}>
         ShopVerse — Return & Refund Policy
       </h2>
 
       <p style={{ marginBottom: '20px' }}>
-        At <strong>ShopVerse</strong>, customer satisfaction is a top priority. We strive to provide clear guidelines regarding product returns, cancellations, and test-environment refund workflows.
+        At <strong style={{ color: '#0f172a' }}>ShopVerse</strong>, customer satisfaction is a top priority. We strive to provide clear guidelines regarding product returns, cancellations, and test-environment refund workflows.
       </p>
 
       <h4 style={sectionTitleStyle}>1. 30-Day Return Window</h4>
@@ -57,7 +65,14 @@ const ReturnPolicy = () => {
         Unless the return is caused by a ShopVerse fulfillment error or defective item, return shipping charges are the responsibility of the customer. Standard restocking fees may apply for high-value electronics and specialty items.
       </p>
 
-      <div style={{ marginTop: '35px', paddingTop: '20px', borderTop: '1px solid rgba(255,255,255,0.05)', fontSize: '0.85rem', fontStyle: 'italic', color: '#71717a' }}>
+      <div style={{ 
+        marginTop: '35px', 
+        paddingTop: '20px', 
+        borderTop: '1px solid #e2e8f0', 
+        fontSize: '0.85rem', 
+        fontStyle: 'italic', 
+        color: '#94a3b8' 
+      }}>
         Note: ShopVerse is a portfolio application. All transaction flows, return requests, and refund timelines (typically 5–7 business days in real deployments) are strictly simulated for demonstration purposes.
       </div>
     </div>
