@@ -1,0 +1,27 @@
+{
+  "name": "shopVerse",
+  "version": "1.0.0",
+  "description": "Full Stack E Commerce Website made by MERN",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "build": "cd frontend && npm install && npm run build",
+    "start": "cd backend && npm start",
+    "dev": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:backend": "npm --prefix backend run dev",
+    "start:frontend": "npm --prefix frontend run dev",
+    "seed": "npm --prefix backend run seed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Prince-mnpp/shopVerse.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Prince-mnpp/shopVerse/issues"
+  },
+  "homepage": "https://github.com/Prince-mnpp/shopVerse#readme"
+}
