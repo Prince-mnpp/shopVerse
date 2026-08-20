@@ -6,11 +6,15 @@ import '../styles/auth.css';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setIsSubmitting(true);
     try {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
@@ -22,10 +26,13 @@ const Login = () => {
         login(data);
         navigate('/');
       } else {
-        alert(data.message);
+        setError(data.message || 'Unable to log in. Please try again.');
       }
     } catch (error) {
       console.error(error);
+      setError('Unable to reach the server. Please try again shortly.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -35,7 +42,8 @@ const Login = () => {
         <h2>Login</h2>
         <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <button type="submit" className="btn">Login</button>
+        {error && <p role="alert" className="auth-error">{error}</p>}
+        <button type="submit" className="btn" disabled={isSubmitting}>{isSubmitting ? 'Logging in...' : 'Login'}</button>
         <p>Don't have an account? <Link to="/register">Register</Link></p>
       </form>
     </div>
